@@ -4,7 +4,9 @@ Simple bruteforcer.
 
 Requirements
 ------------
-ruby
+* ruby
+* gem "mechanize"
+* gem "progress_bar"
 
 Supports
 --------
